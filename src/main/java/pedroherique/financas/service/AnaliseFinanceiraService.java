@@ -9,8 +9,9 @@ import pedroherique.financas.model.ObjetivoFinanceiro;
 import pedroherique.financas.model.Pessoa;
 import pedroherique.financas.model.Renda;
 import pedroherique.financas.model.StatusObjetivo;
-import pedroherique.financas.repository.*;
-import pedroherique.financas.services.ResultadoAnalise;
+import pedroherique.financas.repository.DespesaRepository;
+import pedroherique.financas.repository.DividasRepository;
+import pedroherique.financas.repository.RendaRepository;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -25,7 +26,8 @@ public class AnaliseFinanceiraService {
     private final DespesaRepository despesaRepository;
     private final DividasRepository dividaRepository;
 
-
+    // Vem do application.properties (ex.: app.limite-comprometimento=30.0)
+    // Assim dá para ajustar sem recompilar o projeto.
     @Value("${app.limite-comprometimento:30.0}")
     private BigDecimal limiteComprometimentoRecomendado;
 
@@ -51,6 +53,7 @@ public class AnaliseFinanceiraService {
                 .map(Despesa::getValor)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
+        // ...mais as parcelas das dívidas que ainda não foram totalmente pagas.
         List<Divida> dividas = dividaRepository.findByPessoaId(pessoa.getId());
         BigDecimal totalParcelasDividas = dividas.stream()
                 .filter(d -> d.getParcelasRestantes() > 0)
@@ -64,11 +67,15 @@ public class AnaliseFinanceiraService {
         return calcularRendaTotal(pessoa).subtract(calcularDespesaTotal(pessoa));
     }
 
-
+    /**
+     * Método principal: avalia se a pessoa pode assumir a parcela estimada
+     * de um novo objetivo, sem estourar o limite de comprometimento de renda.
+     */
     public ResultadoAnalise avaliarObjetivo(Pessoa pessoa, ObjetivoFinanceiro objetivo) {
         BigDecimal rendaTotal = calcularRendaTotal(pessoa);
 
-
+        // Sem essa validação, dividir por rendaTotal = 0 quebraria o cálculo
+        // (ou pior: passaria despercebido, gerando um percentual sem sentido).
         if (rendaTotal.compareTo(BigDecimal.ZERO) <= 0) {
             throw new RendaInsuficienteException(
                     "Não é possível calcular a viabilidade: a pessoa não possui renda cadastrada.");
@@ -97,6 +104,7 @@ public class AnaliseFinanceiraService {
                 + comprometimentoProjetado + "%, acima do limite de "
                 + limiteComprometimentoRecomendado + "%.";
 
+        // Atualiza o status do objetivo automaticamente com base no resultado
         objetivo.setStatus(viavel ? StatusObjetivo.APROVADO : StatusObjetivo.REPROVADO);
 
         return new ResultadoAnalise(rendaTotal, despesaTotal, saldoDisponivel,

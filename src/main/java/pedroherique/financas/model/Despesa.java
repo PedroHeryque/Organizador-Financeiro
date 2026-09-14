@@ -16,12 +16,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tb_despesas")
-public class Despesas {
+@Table(name = "tb_despesa")
+public class Despesa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +42,7 @@ public class Despesas {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private CategoriaDespesas categoria;
+    private CategoriaDespesa categoria;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -53,10 +52,10 @@ public class Despesas {
 
     private Boolean paga;
 
-    public Despesas() {
+    public Despesa() {
     }
 
-    public Despesas(Long id, String descricao, Pessoa pessoa, BigDecimal valor, CategoriaDespesas categoria, TipoValor tipo, LocalDateTime dataVencimento, Boolean paga) {
+    public Despesa(Long id, String descricao, Pessoa pessoa, BigDecimal valor, CategoriaDespesa categoria, TipoValor tipo, LocalDateTime dataVencimento, Boolean paga) {
         this.id = id;
         this.descricao = descricao;
         this.pessoa = pessoa;
@@ -115,11 +114,11 @@ public class Despesas {
         this.tipo = tipo;
     }
 
-    public CategoriaDespesas getCategoria() {
+    public CategoriaDespesa getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(CategoriaDespesas categoria) {
+    public void setCategoria(CategoriaDespesa categoria) {
         this.categoria = categoria;
     }
 

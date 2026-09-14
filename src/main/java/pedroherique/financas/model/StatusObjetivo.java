@@ -1,4 +1,9 @@
 package pedroherique.financas.model;
 
-public class StatusObjetivo {
+public enum StatusObjetivo {
+    EM_ANALISE,
+    APROVADO,
+    REPROVADO,
+    CONCLUIDO
+
 }

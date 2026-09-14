@@ -1,4 +1,4 @@
-package pedroherique.financas.services;
+package pedroherique.financas.service;
 
 import java.math.BigDecimal;
 

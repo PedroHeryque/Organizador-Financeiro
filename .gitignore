@@ -35,3 +35,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Configurações locais sensíveis ###
+application-local.properties
+*.env
+.env

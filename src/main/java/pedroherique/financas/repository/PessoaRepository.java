@@ -1,4 +1,9 @@
 package pedroherique.financas.repository;
 
-public class PessoaRepository {
+import pedroherique.financas.model.Pessoa;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface PessoaRepository extends JpaRepository<Pessoa, Integer> {
 }

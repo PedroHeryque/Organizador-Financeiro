@@ -1,6 +1,6 @@
 package pedroherique.financas.model;
 
-public enum CategoriaDespesas {
+public enum CategoriaDespesa {
     MORADIA,
     ALIMENTACAO,
     TRANSPORTE,
