@@ -35,10 +35,7 @@ public class Pessoa {
 
     public Pessoa() {
     }
-    public Pessoa(String pessoaTeste, String profissãoTeste, String s, String mail, Object o) {
-
-    }
-    public  Pessoa(Long id, String nome, String profissao, String telefone, String email,LocalDate dataNascimento) {
+    public Pessoa(Long id, String nome, String profissao, String telefone, String email, LocalDate dataNascimento) {
         this.id = id;
         this.nome = nome;
         this.profissao = profissao;

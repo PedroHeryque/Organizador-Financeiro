@@ -37,4 +37,12 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	jvmArgumentProviders.add({
+		def agent = configurations.testRuntimeClasspath.find { it.name.startsWith('byte-buddy-agent') }
+		["-javaagent:${agent.absolutePath}"]
+	} as CommandLineArgumentProvider)
+}
+
+tasks.named('bootRun') {
+	standardInput = System.in
 }

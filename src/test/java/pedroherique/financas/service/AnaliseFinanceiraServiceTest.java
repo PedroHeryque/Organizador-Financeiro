@@ -16,7 +16,6 @@ import pedroherique.financas.model.StatusObjetivo;
 import pedroherique.financas.model.TipoValor;
 import pedroherique.financas.repository.DespesaRepository;
 import pedroherique.financas.repository.DividasRepository;
-import pedroherique.financas.repository.DividasRepository;
 import pedroherique.financas.repository.RendaRepository;
 
 import java.math.BigDecimal;
@@ -50,7 +49,7 @@ class AnaliseFinanceiraServiceTest {
 
     @BeforeEach
     void setUp() {
-        pessoa = new Pessoa("Pessoa Teste", "Profissão Teste", "0000-0000", "teste@email.com", null);
+        pessoa = new Pessoa(null, "Pessoa Teste", "Profissão Teste", "0000-0000", "teste@email.com", null);
 
         // @Value não é processado fora do contexto do Spring em um teste unitário puro,
         // então setamos manualmente o limite que normalmente viria do application.properties.
