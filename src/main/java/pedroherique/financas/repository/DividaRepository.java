@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public interface DividasRepository extends JpaRepository<Divida, Long> {
+public interface DividaRepository extends JpaRepository<Divida, Long> {
 
     List<Divida> findAllById(Long pessoaId);
 

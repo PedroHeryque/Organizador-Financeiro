@@ -1,4 +1,5 @@
 package pedroherique.financas.model;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -6,15 +7,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Table;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-
+/**
+ * Guarda o resultado de cada análise de viabilidade já realizada,
+ * para permitir consultar a evolução financeira de uma pessoa ao longo do tempo.
+ */
 @Entity
 @Table(name = "tb_analise")
 public class HistoricoAnalise {
@@ -29,21 +32,21 @@ public class HistoricoAnalise {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "objetivo_id")
-    private ObjetivoFinanceiro objetivo;
+    private ObjetivoFinanceiro objetivo; // pode ser null se um dia a análise não vier de um objetivo específico
 
-    @Column(precision = 12 , scale = 2)
+    @Column(precision = 12, scale = 2)
     private BigDecimal rendaTotal;
 
-    @Column(precision = 12 , scale = 2)
+    @Column(precision = 12, scale = 2)
     private BigDecimal despesaTotal;
 
-    @Column(precision = 12,scale = 2)
+    @Column(precision = 12, scale = 2)
     private BigDecimal saldoDisponivel;
 
-    @Column(precision = 7,scale = 2)
+    @Column(precision = 7, scale = 2)
     private BigDecimal comprometimentoAtual;
 
-    @Column(precision = 7,scale = 2)
+    @Column(precision = 7, scale = 2)
     private BigDecimal comprometimentoProjetado;
 
     private boolean viavel;
@@ -51,13 +54,16 @@ public class HistoricoAnalise {
     @Column(length = 500)
     private String mensagem;
 
-    @Column(nullable = false,updatable = false)
-    private LocalDate dataAnalise;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime dataAnalise;
 
     public HistoricoAnalise() {
     }
 
-    public HistoricoAnalise(Pessoa pessoa, ObjetivoFinanceiro objetivo,BigDecimal rendaTotal, BigDecimal despesaTotal,BigDecimal saldoDisponivel,BigDecimal comprometimentoAtual,BigDecimal comprometimentoProjetado,Boolean viavel,String mensagem){
+    public HistoricoAnalise(Pessoa pessoa, ObjetivoFinanceiro objetivo, BigDecimal rendaTotal,
+                            BigDecimal despesaTotal, BigDecimal saldoDisponivel,
+                            BigDecimal comprometimentoAtual, BigDecimal comprometimentoProjetado,
+                            boolean viavel, String mensagem) {
         this.pessoa = pessoa;
         this.objetivo = objetivo;
         this.rendaTotal = rendaTotal;
@@ -68,96 +74,53 @@ public class HistoricoAnalise {
         this.viavel = viavel;
         this.mensagem = mensagem;
     }
+
     @PrePersist
-    protected  void aoSalvar(){
-        this.dataAnalise = LocalDate.now();
+    protected void aoSalvar() {
+        this.dataAnalise = LocalDateTime.now();
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Pessoa getPessoa() {
         return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
     }
 
     public ObjetivoFinanceiro getObjetivo() {
         return objetivo;
     }
 
-    public void setObjetivo(ObjetivoFinanceiro objetivo) {
-        this.objetivo = objetivo;
+    public BigDecimal getRendaTotal() {
+        return rendaTotal;
     }
 
     public BigDecimal getDespesaTotal() {
         return despesaTotal;
     }
 
-    public void setDespesaTotal(BigDecimal despesaTotal) {
-        this.despesaTotal = despesaTotal;
-    }
-
-    public BigDecimal getRendaTotal() {
-        return rendaTotal;
-    }
-
-    public void setRendaTotal(BigDecimal rendaTotal) {
-        this.rendaTotal = rendaTotal;
-    }
-
     public BigDecimal getSaldoDisponivel() {
         return saldoDisponivel;
-    }
-
-    public void setSaldoDisponivel(BigDecimal saldoDisponivel) {
-        this.saldoDisponivel = saldoDisponivel;
     }
 
     public BigDecimal getComprometimentoAtual() {
         return comprometimentoAtual;
     }
 
-    public void setComprometimentoAtual(BigDecimal comprometimentoAtual) {
-        this.comprometimentoAtual = comprometimentoAtual;
+    public BigDecimal getComprometimentoProjetado() {
+        return comprometimentoProjetado;
     }
 
     public boolean isViavel() {
         return viavel;
     }
 
-    public void setViavel(boolean viavel) {
-        this.viavel = viavel;
-    }
-
-    public BigDecimal getComprometimentoProjetado() {
-        return comprometimentoProjetado;
-    }
-
-    public void setComprometimentoProjetado(BigDecimal comprometimentoProjetado) {
-        this.comprometimentoProjetado = comprometimentoProjetado;
-    }
-
     public String getMensagem() {
         return mensagem;
     }
 
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
-    }
-
-    public LocalDate getDataAnalise() {
+    public LocalDateTime getDataAnalise() {
         return dataAnalise;
-    }
-
-    public void setDataAnalise(LocalDate dataAnalise) {
-        this.dataAnalise = dataAnalise;
     }
 }

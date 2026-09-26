@@ -4,33 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68497e49-3209-4d34-9b7f-cbc4dba53de8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/FinancasApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/exception/DadosInvalidosException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/exception/RendaInsuficienteException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/model/CategoriaDespesa.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/model/Despesa.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/model/Divida.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/model/HistoricoAnalise.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/model/ObjetivoFinanceiro.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/model/Pessoa.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/model/Renda.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/model/StatusObjetivo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/model/TipoValor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/repository/DespesaRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/repository/DividasRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/repository/HistoricoAnaliseRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/repository/ObjetivoRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/repository/PessoaRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/repository/RendaRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/service/AnaliseFinanceiraService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/service/ResultadoAnalise.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/view/MenuConsole.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/controller/PessoaController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/dto/PessoaDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/pedroherique/financas/FinancasApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/pedroherique/financas/service/AnaliseFinanceiraServiceTest.java" beforeDir="false" />
+    <list default="true" id="68497e49-3209-4d34-9b7f-cbc4dba53de8" name="Changes" comment="Repository, pacote web e  atualizados com sucesso">
+      <change afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/controller/AnaliseController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/controller/DespesaController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/controller/DividaController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/controller/ObjetivoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/controller/RendaController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/dto/DespesaDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/dto/DividaDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/dto/ObjetivoDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/dto/RendaDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/dto/ResultadoAnaliseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/.gradle/9.7.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/main/.gradle/9.7.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/model/Despesa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/model/Despesa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/model/HistoricoAnalise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/model/HistoricoAnalise.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/repository/DividasRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/repository/DividaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/repository/HistoricoAnaliseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/repository/HistoricoAnaliseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/service/AnaliseFinanceiraService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/service/AnaliseFinanceiraService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/view/MenuConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/view/MenuConsole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/controller/PessoaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/controller/PessoaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/dto/PessoaDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pedroherique/financas/web/dto/PessoaDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/pedroherique/financas/service/AnaliseFinanceiraServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/pedroherique/financas/service/AnaliseFinanceiraServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +74,7 @@
       </map>
     </option>
     <option name="RECENT_COMMON_BRANCH" value="Fase-2" />
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/main" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -103,9 +103,10 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "Spring Boot.FinancasApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "Web",
+    "git-widget-placeholder": "FaseWeb",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Projetos/financas",
     "node.js.detected.package.eslint": "true",
@@ -157,5 +158,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Repository, pacote web e  atualizados com sucesso" />
+    <option name="LAST_COMMIT_MESSAGE" value="Repository, pacote web e  atualizados com sucesso" />
   </component>
 </project>

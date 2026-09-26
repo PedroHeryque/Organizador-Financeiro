@@ -10,7 +10,7 @@ import pedroherique.financas.model.Pessoa;
 import pedroherique.financas.model.Renda;
 import pedroherique.financas.model.StatusObjetivo;
 import pedroherique.financas.repository.DespesaRepository;
-import pedroherique.financas.repository.DividasRepository;
+import pedroherique.financas.repository.DividaRepository;
 import pedroherique.financas.repository.RendaRepository;
 
 import java.math.BigDecimal;
@@ -24,7 +24,7 @@ public class AnaliseFinanceiraService {
 
     private final RendaRepository rendaRepository;
     private final DespesaRepository despesaRepository;
-    private final DividasRepository dividaRepository;
+    private final DividaRepository dividaRepository;
 
     // Vem do application.properties (ex.: app.limite-comprometimento=30.0)
     // Assim dá para ajustar sem recompilar o projeto.
@@ -33,7 +33,7 @@ public class AnaliseFinanceiraService {
 
     public AnaliseFinanceiraService(RendaRepository rendaRepository,
                                     DespesaRepository despesaRepository,
-                                    DividasRepository dividaRepository) {
+                                    DividaRepository dividaRepository) {
         this.rendaRepository = rendaRepository;
         this.despesaRepository = despesaRepository;
         this.dividaRepository = dividaRepository;

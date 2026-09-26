@@ -5,7 +5,13 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 import pedroherique.financas.exception.DadosInvalidosException;
 import pedroherique.financas.exception.RendaInsuficienteException;
-import pedroherique.financas.model.*;
+import pedroherique.financas.model.CategoriaDespesa;
+import pedroherique.financas.model.Despesa;
+import pedroherique.financas.model.Divida;
+import pedroherique.financas.model.ObjetivoFinanceiro;
+import pedroherique.financas.model.Pessoa;
+import pedroherique.financas.model.Renda;
+import pedroherique.financas.model.TipoValor;
 import pedroherique.financas.repository.*;
 import pedroherique.financas.service.AnaliseFinanceiraService;
 import pedroherique.financas.service.ResultadoAnalise;
@@ -35,7 +41,6 @@ public class MenuConsole implements CommandLineRunner {
     private final ObjetivoRepository objetivoRepository;
     private final AnaliseFinanceiraService analiseFinanceiraService;
     private final ConfigurableApplicationContext applicationContext;
-    private final HistoricoAnaliseRepository historicoAnaliseRepository;
 
     public MenuConsole(PessoaRepository pessoaRepository,
                        RendaRepository rendaRepository,
@@ -43,8 +48,7 @@ public class MenuConsole implements CommandLineRunner {
                        DividasRepository dividasRepository,
                        ObjetivoRepository objetivoRepository,
                        AnaliseFinanceiraService analiseFinanceiraService,
-                       ConfigurableApplicationContext applicationContext,
-                       HistoricoAnaliseRepository historicoAnaliseRepository) {
+                       ConfigurableApplicationContext applicationContext) {
         this.pessoaRepository = pessoaRepository;
         this.rendaRepository = rendaRepository;
         this.despesaRepository = despesaRepository;
@@ -52,7 +56,6 @@ public class MenuConsole implements CommandLineRunner {
         this.objetivoRepository = objetivoRepository;
         this.analiseFinanceiraService = analiseFinanceiraService;
         this.applicationContext = applicationContext;
-        this.historicoAnaliseRepository = historicoAnaliseRepository;
     }
 
     @Override
@@ -70,7 +73,6 @@ public class MenuConsole implements CommandLineRunner {
                     case 5 -> cadastrarObjetivo();
                     case 6 -> rodarAnalise();
                     case 7 -> listarPessoas();
-                    case 8 -> verHistoricoAnalise();
                     case 0 -> continuar = false;
                     default -> System.out.println("Opção inválida. Tente novamente.");
                 }
@@ -99,14 +101,13 @@ public class MenuConsole implements CommandLineRunner {
         System.out.println("5 - Cadastrar objetivo financeiro");
         System.out.println("6 - Rodar análise de viabilidade");
         System.out.println("7 - Listar pessoas cadastradas");
-        System.out.println("8 - Ver histórico de análise de uma pessoa");
         System.out.println("0 - Sair");
         System.out.println("=================================================");
     }
 
     private void cadastrarPessoa() {
         System.out.println("\n--- Cadastro de Pessoa ---");
-        String nome = lerTexto("Nome completo: ");
+        String nome = lerTexto("Nome: ");
         String profissao = lerTexto("Profissão: ");
         String telefone = lerTexto("Telefone: ");
         String email = lerTexto("E-mail: ");
@@ -222,26 +223,8 @@ public class MenuConsole implements CommandLineRunner {
             System.out.println("ID " + p.getId() + " - " + p.getNome() + " (" + p.getProfissao() + ")");
         }
     }
-    private void verHistoricoAnalise() {
-        System.out.println("\n--- Histórico de Análises ---");
-        Pessoa pessoa = selecionarPessoa();
 
-        List<HistoricoAnalise> historico = historicoAnaliseRepository.findByPessoaIdOrderByDataAnaliseDesc(pessoa.getId());
-        if (historico.isEmpty()) {
-            System.out.println("Essa pessoa ainda não tem nenhuma análise registrada.");
-            return;
-        }
-
-        for (HistoricoAnalise h : historico) {
-            String descricaoObjetivo = h.getObjetivo() != null ? h.getObjetivo().getDescricao() : "(objetivo removido)";
-            System.out.println("\nData: " + h.getDataAnalise());
-            System.out.println("Objetivo: " + descricaoObjetivo);
-            System.out.println("Renda total: R$ " + h.getRendaTotal() + " | Despesa total: R$ " + h.getDespesaTotal());
-            System.out.println("Comprometimento projetado: " + h.getComprometimentoProjetado() + "%");
-            System.out.println("Resultado: " + (h.isViavel() ? "VIÁVEL" : "NÃO VIÁVEL"));
-        }
-    }
-
+    // ---------- Helpers de leitura ----------
 
     private Pessoa selecionarPessoa() {
         listarPessoas();
@@ -250,7 +233,7 @@ public class MenuConsole implements CommandLineRunner {
             throw new DadosInvalidosException("Cadastre uma pessoa antes de continuar.");
         }
         Long id = (long) lerNumeroInteiro("Digite o ID da pessoa: ");
-        Optional<Pessoa> pessoa = pessoaRepository.findById(id);
+        Optional<Pessoa> pessoa = pessoaRepository.findById(Math.toIntExact(id));
         return pessoa.orElseThrow(() -> new DadosInvalidosException("Nenhuma pessoa encontrada com o ID " + id));
     }
 

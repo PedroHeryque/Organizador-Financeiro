@@ -15,7 +15,7 @@ import pedroherique.financas.model.Renda;
 import pedroherique.financas.model.StatusObjetivo;
 import pedroherique.financas.model.TipoValor;
 import pedroherique.financas.repository.DespesaRepository;
-import pedroherique.financas.repository.DividasRepository;
+import pedroherique.financas.repository.DividaRepository;
 import pedroherique.financas.repository.RendaRepository;
 
 import java.math.BigDecimal;
@@ -40,7 +40,7 @@ class AnaliseFinanceiraServiceTest {
     private DespesaRepository despesaRepository;
 
     @Mock
-    private DividasRepository dividaRepository;
+    private DividaRepository dividaRepository;
 
     @InjectMocks
     private AnaliseFinanceiraService service;

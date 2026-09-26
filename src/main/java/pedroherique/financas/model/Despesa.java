@@ -129,4 +129,8 @@ public class Despesa {
     public void setPaga(Boolean paga) {
         this.paga = paga;
     }
+
+    public boolean isPaga() {
+        return paga;
+    }
 }

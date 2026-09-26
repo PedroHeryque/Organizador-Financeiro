@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Past;
 import java.time.LocalDate;
 
 
+
 public class PessoaDTO {
 
     private Long id;
@@ -18,13 +19,13 @@ public class PessoaDTO {
 
     private String telefone;
 
-    @Email(message = "Email inválido")
+    @Email(message = "E-mail inválido")
     private String email;
 
     @Past(message = "A data de nascimento deve estar no passado")
     private LocalDate dataNascimento;
 
-    public  PessoaDTO() {
+    public PessoaDTO() {
     }
 
     public PessoaDTO(Long id, String nome, String profissao, String telefone, String email, LocalDate dataNascimento) {
@@ -34,15 +35,6 @@ public class PessoaDTO {
         this.telefone = telefone;
         this.email = email;
         this.dataNascimento = dataNascimento;
-
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public Long getId() {
@@ -53,12 +45,12 @@ public class PessoaDTO {
         this.id = id;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getNome() {
+        return nome;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getProfissao() {
@@ -67,6 +59,14 @@ public class PessoaDTO {
 
     public void setProfissao(String profissao) {
         this.profissao = profissao;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public String getEmail() {
