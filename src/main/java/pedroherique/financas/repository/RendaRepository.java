@@ -10,7 +10,5 @@ import java.util.List;
 
 public interface RendaRepository extends JpaRepository<Renda, Long> {
 
-    List<Renda> findAllById(Long pessoaId);
-
     List<Renda> findByPessoaId(Long id);
 }

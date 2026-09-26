@@ -61,6 +61,6 @@ public class PessoaController {
 
     private PessoaDTO paraDTO(Pessoa pessoa) {
         return new PessoaDTO(pessoa.getId(), pessoa.getNome(), pessoa.getProfissao(),
-                pessoa.getTelefone(), pessoa.geteEmail(), pessoa.getDataNascimento());
+                pessoa.getTelefone(), pessoa.getEmail(), pessoa.getDataNascimento());
     }
 }

@@ -2,6 +2,7 @@ package pedroherique.financas.view;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pedroherique.financas.exception.DadosInvalidosException;
 import pedroherique.financas.exception.RendaInsuficienteException;
@@ -28,6 +29,7 @@ import java.util.Scanner;
 
 
 @Component
+@Profile("!test")
 public class MenuConsole implements CommandLineRunner {
 
     private static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -37,7 +39,7 @@ public class MenuConsole implements CommandLineRunner {
     private final PessoaRepository pessoaRepository;
     private final RendaRepository rendaRepository;
     private final DespesaRepository despesaRepository;
-    private final DividasRepository dividasRepository;
+    private final DividaRepository dividasRepository;
     private final ObjetivoRepository objetivoRepository;
     private final AnaliseFinanceiraService analiseFinanceiraService;
     private final ConfigurableApplicationContext applicationContext;
@@ -45,7 +47,7 @@ public class MenuConsole implements CommandLineRunner {
     public MenuConsole(PessoaRepository pessoaRepository,
                        RendaRepository rendaRepository,
                        DespesaRepository despesaRepository,
-                       DividasRepository dividasRepository,
+                       DividaRepository dividasRepository,
                        ObjetivoRepository objetivoRepository,
                        AnaliseFinanceiraService analiseFinanceiraService,
                        ConfigurableApplicationContext applicationContext) {
@@ -233,7 +235,7 @@ public class MenuConsole implements CommandLineRunner {
             throw new DadosInvalidosException("Cadastre uma pessoa antes de continuar.");
         }
         Long id = (long) lerNumeroInteiro("Digite o ID da pessoa: ");
-        Optional<Pessoa> pessoa = pessoaRepository.findById(Math.toIntExact(id));
+        Optional<Pessoa> pessoa = pessoaRepository.findById(id);
         return pessoa.orElseThrow(() -> new DadosInvalidosException("Nenhuma pessoa encontrada com o ID " + id));
     }
 

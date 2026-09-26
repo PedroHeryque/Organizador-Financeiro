@@ -131,6 +131,6 @@ public class Despesa {
     }
 
     public boolean isPaga() {
-        return paga;
+        return Boolean.TRUE.equals(paga);
     }
 }

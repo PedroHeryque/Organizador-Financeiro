@@ -1,9 +1,11 @@
 HELP.md
 .gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
+# "**/" para pegar build/ em qualquer subpasta (ex.: main/build/),
+# e nao so na raiz do projeto.
+**/build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+!gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
 .apt_generated
@@ -37,6 +39,30 @@ out/
 .vscode/
 
 ### Configurações locais sensíveis ###
+# profile local:	url, usuario e SENHA do seu banco. Nunca versionar.
+# O padrão sem "/" vale em qualquer pasta (src/main/resources, src/test/resources, etc).
 application-local.properties
+application-local-*.properties
 *.env
 .env
+!.env.example
+
+### Banco H2 do profile h2 ###
+data/
+*.mv.db
+*.h2.db
+*.lock.db
+*.trace.db
+
+### Logs e arquivos temporários ###
+*.log
+*.log.*
+logs/
+*.tmp
+*.bak
+
+### Sistema operacional ###
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini

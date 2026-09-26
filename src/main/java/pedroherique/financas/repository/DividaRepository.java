@@ -7,8 +7,6 @@ import java.util.List;
 @Repository
 public interface DividaRepository extends JpaRepository<Divida, Long> {
 
-    List<Divida> findAllById(Long pessoaId);
-
     List<Divida> findByPessoaId(Long id);
 }
 
