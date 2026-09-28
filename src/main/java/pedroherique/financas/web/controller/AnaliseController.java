@@ -43,9 +43,7 @@ public class AnaliseController {
         Pessoa pessoa = pessoaRepository.findById(pessoaId)
                 .orElseThrow(() -> new DadosInvalidosException("Pessoa não encontrada com o ID " + pessoaId));
 
-        ObjetivoFinanceiro objetivo = objetivoRepository.findByPessoaId(pessoaId).stream()
-                .filter(o -> o.getId().equals(objetivoId))
-                .findFirst()
+        ObjetivoFinanceiro objetivo = objetivoRepository.findByIdAndPessoaId(objetivoId, pessoaId)
                 .orElseThrow(() -> new DadosInvalidosException("Objetivo não encontrado para essa pessoa."));
 
         ResultadoAnalise resultado = analiseFinanceiraService.avaliarObjetivo(pessoa, objetivo);

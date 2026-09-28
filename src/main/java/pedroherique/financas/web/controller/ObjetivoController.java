@@ -1,6 +1,7 @@
 package pedroherique.financas.web.controller;
 
 import jakarta.validation.Valid;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,10 +50,20 @@ public class ObjetivoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long pessoaId, @PathVariable Long id) {
-        if (!objetivoRepository.existsById(id)) {
-            throw new DadosInvalidosException("Objetivo não encontrado com o ID " + id);
+        ObjetivoFinanceiro objetivo = objetivoRepository.findById(id)
+                .orElseThrow(() -> new DadosInvalidosException("Objetivo não encontrado com o ID " + id));
+        // getId() no proxy lazy do Hibernate nao dispara carga, entao nao ha LazyInitializationException aqui.
+        if (!pessoaId.equals(objetivo.getPessoa().getId())) {
+            throw new DadosInvalidosException("Objetivo " + id + " não pertence à pessoa " + pessoaId);
         }
-        objetivoRepository.deleteById(id);
+        try {
+            objetivoRepository.delete(objetivo);
+        } catch (DataIntegrityViolationException e) {
+            // A constraint objetivo_id do banco ainda esta como NO ACTION; enquanto o ON DELETE SET NULL
+            // (@OnDelete em HistoricoAnalise) nao for aplicado no banco, isso vira 400 em vez de 500.
+            throw new DadosInvalidosException("Objetivo " + id
+                    + " possui análises vinculadas e não pode ser excluído.");
+        }
         return ResponseEntity.noContent().build();
     }
 

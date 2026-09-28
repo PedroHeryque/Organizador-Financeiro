@@ -1,13 +1,13 @@
 package pedroherique.financas.repository;
 
-import pedroherique.financas.model.Renda;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import pedroherique.financas.model.Renda;
 
 @Repository
-
 public interface RendaRepository extends JpaRepository<Renda, Long> {
 
     List<Renda> findByPessoaId(Long id);

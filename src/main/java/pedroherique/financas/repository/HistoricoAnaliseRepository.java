@@ -1,11 +1,12 @@
 package pedroherique.financas.repository;
 
-import pedroherique.financas.model.HistoricoAnalise;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import pedroherique.financas.model.HistoricoAnalise;
 
 @Repository
 public interface HistoricoAnaliseRepository extends JpaRepository<HistoricoAnalise, Long> {

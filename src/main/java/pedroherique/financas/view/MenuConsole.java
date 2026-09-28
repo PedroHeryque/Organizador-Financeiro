@@ -9,6 +9,7 @@ import pedroherique.financas.exception.RendaInsuficienteException;
 import pedroherique.financas.model.CategoriaDespesa;
 import pedroherique.financas.model.Despesa;
 import pedroherique.financas.model.Divida;
+import pedroherique.financas.model.HistoricoAnalise;
 import pedroherique.financas.model.ObjetivoFinanceiro;
 import pedroherique.financas.model.Pessoa;
 import pedroherique.financas.model.Renda;
@@ -41,6 +42,7 @@ public class MenuConsole implements CommandLineRunner {
     private final DespesaRepository despesaRepository;
     private final DividaRepository dividasRepository;
     private final ObjetivoRepository objetivoRepository;
+    private final HistoricoAnaliseRepository historicoAnaliseRepository;
     private final AnaliseFinanceiraService analiseFinanceiraService;
     private final ConfigurableApplicationContext applicationContext;
 
@@ -49,6 +51,7 @@ public class MenuConsole implements CommandLineRunner {
                        DespesaRepository despesaRepository,
                        DividaRepository dividasRepository,
                        ObjetivoRepository objetivoRepository,
+                       HistoricoAnaliseRepository historicoAnaliseRepository,
                        AnaliseFinanceiraService analiseFinanceiraService,
                        ConfigurableApplicationContext applicationContext) {
         this.pessoaRepository = pessoaRepository;
@@ -56,6 +59,7 @@ public class MenuConsole implements CommandLineRunner {
         this.despesaRepository = despesaRepository;
         this.dividasRepository = dividasRepository;
         this.objetivoRepository = objetivoRepository;
+        this.historicoAnaliseRepository = historicoAnaliseRepository;
         this.analiseFinanceiraService = analiseFinanceiraService;
         this.applicationContext = applicationContext;
     }
@@ -203,6 +207,14 @@ public class MenuConsole implements CommandLineRunner {
 
         ResultadoAnalise resultado = analiseFinanceiraService.avaliarObjetivo(pessoa, objetivo);
         objetivoRepository.save(objetivo);
+
+        // Sem esta gravacao, quem usa o console nao teria historico em GET /pessoas/{id}/historico,
+        // porque so o AnaliseController (REST) registrava a analise.
+        HistoricoAnalise historico = new HistoricoAnalise(pessoa, objetivo,
+                resultado.getRendaTotal(), resultado.getDespesaTotal(), resultado.getSaldoDesponivel(),
+                resultado.getComprometimentoAtual(), resultado.getComprometimentoProjeto(),
+                resultado.isViavel(), resultado.getMensagem());
+        historicoAnaliseRepository.save(historico);
 
         System.out.println("\n----- RESULTADO DA ANÁLISE -----");
         System.out.println("Renda total:              R$ " + resultado.getRendaTotal());

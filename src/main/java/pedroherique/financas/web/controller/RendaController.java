@@ -48,10 +48,13 @@ public class RendaController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long pessoaId, @PathVariable Long id) {
-        if (!rendaRepository.existsById(id)) {
-            throw new DadosInvalidosException("Renda não encontrada com o ID " + id);
+        Renda renda = rendaRepository.findById(id)
+                .orElseThrow(() -> new DadosInvalidosException("Renda não encontrada com o ID " + id));
+        // getId() no proxy lazy do Hibernate nao dispara carga, entao nao ha LazyInitializationException aqui.
+        if (!pessoaId.equals(renda.getPessoa().getId())) {
+            throw new DadosInvalidosException("Renda " + id + " não pertence à pessoa " + pessoaId);
         }
-        rendaRepository.deleteById(id);
+        rendaRepository.delete(renda);
         return ResponseEntity.noContent().build();
     }
 

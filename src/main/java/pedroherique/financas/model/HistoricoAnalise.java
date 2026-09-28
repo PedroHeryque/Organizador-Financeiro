@@ -10,6 +10,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -30,7 +32,10 @@ public class HistoricoAnalise {
     @JoinColumn(name = "pessoa_id", nullable = false)
     private Pessoa pessoa;
 
+    // SET_NULL: ao excluir o objetivo, o historico e preservado com objetivo_id = null.
+    // O AnaliseController ja trata esse caso exibindo "(objetivo removido)".
     @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     @JoinColumn(name = "objetivo_id")
     private ObjetivoFinanceiro objetivo; // pode ser null se um dia a análise não vier de um objetivo específico
 

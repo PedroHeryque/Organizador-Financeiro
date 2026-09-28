@@ -14,6 +14,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 
+import pedroherique.financas.exception.DadosInvalidosException;
+
 import java.math.BigDecimal;
 
 @Entity
@@ -59,6 +61,12 @@ public class Divida {
 
     public Divida(Pessoa pessoa, String descricao, BigDecimal valorTotal, BigDecimal valorParcela,
                   Integer quantidadeParcelas, Integer parcelasPagas, BigDecimal taxaJurosMensal) {
+        // Sem esta checagem, parcelasPagas > quantidadeParcelas gera getParcelasRestantes() negativo
+        // e um getSaldoDevedor() negativo, que passa despercebido no calculo de comprometimento.
+        if (quantidadeParcelas != null && parcelasPagas != null && parcelasPagas > quantidadeParcelas) {
+            throw new DadosInvalidosException("Parcelas pagas (" + parcelasPagas
+                    + ") não pode ser maior que a quantidade de parcelas (" + quantidadeParcelas + ").");
+        }
         this.pessoa = pessoa;
         this.descricao = descricao;
         this.valorTotal = valorTotal;

@@ -1,6 +1,7 @@
 package pedroherique.financas.web.controller;
 
 import jakarta.validation.Valid;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,7 +30,7 @@ public class PessoaController {
 
     @PostMapping
     public ResponseEntity<PessoaDTO> criar(@Valid @RequestBody PessoaDTO dto) {
-        Pessoa pessoa = new Pessoa(dto.getId(), dto.getNome(), dto.getProfissao(), dto.getTelefone(),
+        Pessoa pessoa = new Pessoa(dto.getNome(), dto.getProfissao(), dto.getTelefone(),
                 dto.getEmail(), dto.getDataNascimento());
         pessoaRepository.save(pessoa);
 
@@ -55,7 +56,14 @@ public class PessoaController {
         if (!pessoaRepository.existsById(id)) {
             throw new DadosInvalidosException("Pessoa não encontrada com o ID " + id);
         }
-        pessoaRepository.deleteById(id);
+        try {
+            pessoaRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            // pessoa_id e NOT NULL em tb_analise/tb_despesa/tb_renda/tb_divida/tb_objetivo_financeiro,
+            // entao o banco recusaria a exclusao com erro de FK (HTTP 500). Aqui vira 400 com mensagem clara.
+            throw new DadosInvalidosException("Pessoa " + id
+                    + " possui lançamentos vinculados e não pode ser excluída.");
+        }
         return ResponseEntity.noContent().build();
     }
 

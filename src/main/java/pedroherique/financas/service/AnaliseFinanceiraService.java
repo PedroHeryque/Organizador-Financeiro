@@ -47,9 +47,11 @@ public class AnaliseFinanceiraService {
     }
 
     public BigDecimal calcularDespesaTotal(Pessoa pessoa) {
-        // Soma todas as despesas cadastradas...
+        // Soma as despesas cadastradas que ainda NAO foram pagas...
         List<Despesa> despesas = despesaRepository.findByPessoaId(pessoa.getId());
         BigDecimal totalDespesas = despesas.stream()
+                // Uma despesa paga deixa de comprometer a renda, entao nao pode entrar no calculo.
+                .filter(d -> !d.isPaga())
                 .map(Despesa::getValor)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
