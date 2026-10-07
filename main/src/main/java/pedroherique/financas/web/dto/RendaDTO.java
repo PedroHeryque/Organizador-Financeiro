@@ -6,7 +6,6 @@ import  pedroherique.financas.model.TipoValor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 
 public class RendaDTO {
@@ -20,10 +19,10 @@ public class RendaDTO {
     @Positive(message = "O valor tem que ser maior que zero")
     private BigDecimal valor;
 
-    @NotBlank
+    @NotNull
     private TipoValor tipo;
 
-    private LocalDateTime dataRecebimento;
+    private LocalDate dataRecebimento;
 
 
     public RendaDTO() {
@@ -34,7 +33,7 @@ public class RendaDTO {
         this.descricao = descricao;
         this.valor = valor;
         this.tipo = tipo;
-
+        this.dataRecebimento = dataRecebimento;
     }
 
     public Long getId() {
@@ -61,11 +60,11 @@ public class RendaDTO {
         this.tipo = tipo;
     }
 
-    public LocalDateTime getDataRecebimento() {
+    public LocalDate getDataRecebimento() {
         return dataRecebimento;
     }
 
-    public void setDataRecebimento(LocalDateTime dataRecebimento) {
+    public void setDataRecebimento(LocalDate dataRecebimento) {
         this.dataRecebimento = dataRecebimento;
     }
 

@@ -13,14 +13,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import pedroherique.financas.exception.DadosInvalidosException;
+import pedroherique.financas.exception.RecursoNaoEncontradoException;
+import pedroherique.financas.exception.RendaInsuficienteException;
 
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(DadosInvalidosException.class)
-    public ResponseEntity<Map<String, Object>> handleDadosInvalidos(DadosInvalidosException ex) {
+    @ExceptionHandler(RecursoNaoEncontradoException.class)
+    public ResponseEntity<Map<String, Object>> handleRecursoNaoEncontrado(RecursoNaoEncontradoException ex) {
         return construirResposta(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    @ExceptionHandler({DadosInvalidosException.class, RendaInsuficienteException.class})
+    public ResponseEntity<Map<String, Object>> handleDadosInvalidos(RuntimeException ex) {
+        return construirResposta(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

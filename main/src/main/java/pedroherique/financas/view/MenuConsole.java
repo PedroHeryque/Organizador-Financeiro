@@ -2,6 +2,7 @@ package pedroherique.financas.view;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pedroherique.financas.exception.DadosInvalidosException;
 import pedroherique.financas.exception.RendaInsuficienteException;
@@ -22,6 +23,7 @@ import java.util.Scanner;
 
 
 @Component
+@Profile("!test")
 public class MenuConsole implements CommandLineRunner {
 
     private static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");

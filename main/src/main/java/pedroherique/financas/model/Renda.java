@@ -17,7 +17,6 @@ import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_renda")
@@ -45,7 +44,7 @@ public class Renda {
 
     private LocalDate dataRecebimento;
 
-    public Renda(Pessoa pessoa, String descricao, BigDecimal valor, TipoValor tipo, LocalDateTime dataRecebimento) {
+    public Renda() {
     }
 
     public Renda(Pessoa pessoa, String descricao, BigDecimal valor, TipoValor tipo, LocalDate dataRecebimento) {

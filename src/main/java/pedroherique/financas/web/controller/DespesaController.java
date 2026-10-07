@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pedroherique.financas.exception.DadosInvalidosException;
+import pedroherique.financas.exception.RecursoNaoEncontradoException;
 import pedroherique.financas.model.Despesa;
 import pedroherique.financas.model.Pessoa;
 import pedroherique.financas.repository.DespesaRepository;
@@ -52,10 +52,10 @@ public class DespesaController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long pessoaId, @PathVariable Long id) {
         Despesa despesa = despesaRepository.findById(id)
-                .orElseThrow(() -> new DadosInvalidosException("Despesa não encontrada com o ID " + id));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Despesa não encontrada com o ID " + id));
         // getId() no proxy lazy do Hibernate nao dispara carga, entao nao ha LazyInitializationException aqui.
         if (!pessoaId.equals(despesa.getPessoa().getId())) {
-            throw new DadosInvalidosException("Despesa " + id + " não pertence à pessoa " + pessoaId);
+            throw new RecursoNaoEncontradoException("Despesa " + id + " não pertence à pessoa " + pessoaId);
         }
         despesaRepository.delete(despesa);
         return ResponseEntity.noContent().build();
@@ -63,7 +63,7 @@ public class DespesaController {
 
     private Pessoa buscarPessoa(Long pessoaId) {
         return pessoaRepository.findById(pessoaId)
-                .orElseThrow(() -> new DadosInvalidosException("Pessoa não encontrada com o ID " + pessoaId));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Pessoa não encontrada com o ID " + pessoaId));
     }
 
     private DespesaDTO paraDTO(Despesa despesa) {

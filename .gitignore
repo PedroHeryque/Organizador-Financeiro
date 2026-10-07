@@ -43,6 +43,7 @@ out/
 # O padrão sem "/" vale em qualquer pasta (src/main/resources, src/test/resources, etc).
 application-local.properties
 application-local-*.properties
+PessoaAnaliseIntegrationTest
 *.env
 .env
 !.env.example

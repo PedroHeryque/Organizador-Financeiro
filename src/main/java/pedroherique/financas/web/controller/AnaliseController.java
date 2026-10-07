@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pedroherique.financas.exception.DadosInvalidosException;
+import pedroherique.financas.exception.RecursoNaoEncontradoException;
 import pedroherique.financas.model.HistoricoAnalise;
 import pedroherique.financas.model.ObjetivoFinanceiro;
 import pedroherique.financas.model.Pessoa;
@@ -41,10 +41,10 @@ public class AnaliseController {
     @PostMapping("/objetivos/{objetivoId}/analise")
     public ResultadoAnaliseDTO avaliar(@PathVariable Long pessoaId, @PathVariable Long objetivoId) {
         Pessoa pessoa = pessoaRepository.findById(pessoaId)
-                .orElseThrow(() -> new DadosInvalidosException("Pessoa não encontrada com o ID " + pessoaId));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Pessoa não encontrada com o ID " + pessoaId));
 
         ObjetivoFinanceiro objetivo = objetivoRepository.findByIdAndPessoaId(objetivoId, pessoaId)
-                .orElseThrow(() -> new DadosInvalidosException("Objetivo não encontrado para essa pessoa."));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Objetivo não encontrado para essa pessoa."));
 
         ResultadoAnalise resultado = analiseFinanceiraService.avaliarObjetivo(pessoa, objetivo);
         objetivoRepository.save(objetivo); // persiste o status atualizado (APROVADO/REPROVADO)

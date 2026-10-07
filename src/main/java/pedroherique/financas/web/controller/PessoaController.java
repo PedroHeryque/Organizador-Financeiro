@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pedroherique.financas.exception.DadosInvalidosException;
+import pedroherique.financas.exception.RecursoNaoEncontradoException;
 import pedroherique.financas.model.Pessoa;
 import pedroherique.financas.repository.PessoaRepository;
 import pedroherique.financas.web.dto.PessoaDTO;
@@ -47,14 +48,14 @@ public class PessoaController {
     @GetMapping("/{id}")
     public PessoaDTO buscarPorId(@PathVariable Long id) {
         Pessoa pessoa = pessoaRepository.findById(id)
-                .orElseThrow(() -> new DadosInvalidosException("Pessoa não encontrada com o ID " + id));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Pessoa não encontrada com o ID " + id));
         return paraDTO(pessoa);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
         if (!pessoaRepository.existsById(id)) {
-            throw new DadosInvalidosException("Pessoa não encontrada com o ID " + id);
+            throw new RecursoNaoEncontradoException("Pessoa não encontrada com o ID " + id);
         }
         try {
             pessoaRepository.deleteById(id);
